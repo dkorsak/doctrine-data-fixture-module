@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 
 /**
  * Class ContainerAwareTrait
- * @package DoctrineDataFixtureModule\Loader
+ * @package DoctrineDataFixtureModule
  */
 trait ContainerAwareTrait
 {
