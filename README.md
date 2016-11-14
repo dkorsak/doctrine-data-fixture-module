@@ -1,7 +1,5 @@
 # Yet another DoctrineDataFixture Module for Zend Framework 3
 
-[![Build Status](https://travis-ci.org/Hounddog/DoctrineDataFixtureModule.png)](https://travis-ci.org/Hounddog/DoctrineDataFixtureModule)
-
 ## Introduction
 
 This is fork from [Houndog/DoctrineDataFixtureModule](https://github.com/Hounddog/DoctrineDataFixtureModule).
