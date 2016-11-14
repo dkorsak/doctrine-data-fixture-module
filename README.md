@@ -1,17 +1,13 @@
-# DoctrineDataFixture Module for Zend Framework 3
+# Yet another DoctrineDataFixture Module for Zend Framework 3
 
 [![Build Status](https://travis-ci.org/Hounddog/DoctrineDataFixtureModule.png)](https://travis-ci.org/Hounddog/DoctrineDataFixtureModule)
 
 ## Introduction
 
-The DoctrineDataFixtureModule module intends to integrate Doctrine 2
-data-fixture with Zend Framework 3. The following features are
-intended to work out of the box:
+This is fork from [Houndog/DoctrineDataFixtureModule](https://github.com/Hounddog/DoctrineDataFixtureModule).
 
-  - Doctrine ORM support
-  - Multiple ORM entity managers
-  - Multiple DBAL connections
-  - Support reuse existing PDO connections in DBAL
+
+The DoctrineDataFixtureModule module intends to integrate [Doctrine2 ORM Data Fixtures](https://github.com/doctrine/data-fixtures) with Zend Framework 3.
 
 ## Installation
 
@@ -32,20 +28,55 @@ To register fixtures with Doctrine module add the fixtures in your configuration
 ```php
 <?php
 return array(
-      'doctrine' => array(
-            'fixture' => array(
-                  'ModuleName_fixture' => __DIR__ . '/../src/ModuleName/Fixture',
-            )
-      )
+    'doctrine' => array(
+        'fixture' => array(
+            'ModuleName' => __DIR__ . '/../src/ModuleName/Fixture',
+        )
+    )
 );
 ```
 
 ## Usage
 
-#### Command Line
-Access the Doctrine command line as following
-
-##Import
+#### Default
 ```sh
-./vendor/bin/doctrine-module data-fixture:import 
+./vendor/bin/doctrine-module orm:fixtures:load 
+```
+
+#### Purge with truncate and without confirmation
+```sh
+./vendor/bin/doctrine-module orm:fixtures:load -n --purge-with-truncate 
+```
+
+#### Append data instead of delete
+```sh
+./vendor/bin/doctrine-module orm:fixtures:load -n --append
+```
+
+## How to inject container into fixtures file
+
+
+```php
+<?php
+
+namespace Application\DataFixtures;
+
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineDataFixtureModule\ContainerAwareInterface;
+use DoctrineDataFixtureModule\ContainerAwareTrait;
+
+class LoadUser implements FixtureInterface, ContainerAwareInterface
+{
+    use ContainerAwareTrait;
+
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager)
+    {
+        $myService = $this->container->get('my_service');        
+    }
+}
+
 ```
