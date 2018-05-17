@@ -101,7 +101,7 @@ EOT
         if (isset($options['doctrine']['fixture'])) {
             $paths = $options['doctrine']['fixture'];
         }
-
+        ksort($paths);
         return $paths;
     }
 
